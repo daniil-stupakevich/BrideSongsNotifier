@@ -75,7 +75,7 @@
                     <Grid>
                         <Label
                             VerticalAlignment="Center"
-                            Content="Bride Song Notifier"
+                            Content="BrideSongs Notifier"
                             FontSize="23"
                             FontWeight="DemiBold" />
                         <Label
