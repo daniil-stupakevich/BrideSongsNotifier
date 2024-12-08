@@ -6,8 +6,8 @@ For a successful connection, devices must be on the same local network.
 1) Find the computer with Notifier using BrideSong's "Settings" menu.
 2) Choose song or songlist and send notification about your chooising.
 
-<img src="https://ibb.co/XkN23HH" />
-<img src="https://ibb.co/dr173h3" />
+<img src="https://i.ibb.co/FqNx0pp/1.png" />
+<img src="https://i.ibb.co/nbZRVWV/2.png" />
 
 **You find actual version on the Releases page.**    
 Currently, only Windows OS is supported. 
