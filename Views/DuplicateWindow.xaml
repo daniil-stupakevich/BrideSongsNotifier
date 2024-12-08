@@ -1,0 +1,59 @@
+﻿<Window
+    x:Class="BrideSongs.Notifier.App.Views.DuplicateWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:templateselectors="clr-namespace:BrideSongs.Notifier.App.TemplateSelectors"
+    xmlns:usercontrols="clr-namespace:BrideSongs.Notifier.App.Views.UserControls" 
+    xmlns:viewmodels="clr-namespace:BrideSongs.Notifier.App.ViewModels"
+    Width="Auto"
+    Height="Auto"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="CanResize"
+    ShowInTaskbar="False"
+    SizeToContent="WidthAndHeight"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate x:Key="LoadingPopup">
+            <usercontrols:LoadingPopup />
+        </DataTemplate>
+        <DataTemplate x:Key="ManySongsPopup">
+            <usercontrols:ManySongsPopup />
+        </DataTemplate>
+        <DataTemplate x:Key="OneSongPopup">
+            <usercontrols:OneSongPopup />
+        </DataTemplate>
+        <DataTemplate x:Key="ShortManySongPopup">
+            <usercontrols:ShortManySongPopup />
+        </DataTemplate>
+        <ContentControl x:Key="ActivePopupControl" Content="{Binding ActivePopupForDuplicates}">
+            <ContentControl.ContentTemplateSelector>
+                <templateselectors:ActiveControlTemplateSelector
+                    LoadingPopup="{StaticResource LoadingPopup}"
+                    ManySongsPopup="{StaticResource ManySongsPopup}"
+                    ShortManySongsPopup="{StaticResource ShortManySongPopup}"
+                    OneSongPopup="{StaticResource OneSongPopup}" />
+            </ContentControl.ContentTemplateSelector>
+        </ContentControl>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <ContentPresenter Margin="5" Content="{StaticResource ActivePopupControl}" />
+        </StackPanel>
+    </Grid>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SizeChanged">
+            <i:InvokeCommandAction Command="{Binding SetWindowCordinatesCommand}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Deactivated">
+            <i:InvokeCommandAction Command="{Binding WindowDeactivatedCommand}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+</Window>

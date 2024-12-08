@@ -1,0 +1,150 @@
+﻿<UserControl
+    x:Class="BrideSongs.Notifier.App.Views.UserControls.OneSongPopup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:BrideSongs.Notifier.App.Converter"
+    xmlns:customcomponents="clr-namespace:BrideSongs.Notifier.App.CustomComponents"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:BrideSongs.Notifier.App.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+    d:DesignHeight="150"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </UserControl.Resources>
+    <Grid MinWidth="170">
+        <customcomponents:CustomIcon
+            Width="25"
+            Height="25"
+            Margin="0,10,18,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Panel.ZIndex="3"
+            Foreground="#b16100"
+            Kind="Close">
+            <customcomponents:CustomIcon.Style>
+                <Style BasedOn="{StaticResource ResourceKey=CustomIconStyle}" TargetType="{x:Type customcomponents:CustomIcon}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#ffd7b5" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </customcomponents:CustomIcon.Style>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding ClosePopupCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </customcomponents:CustomIcon>
+        <Grid Margin="0,0,10,7">
+            <Border
+                Panel.ZIndex="0"
+                Background="White"
+                BorderBrush="#d87600"
+                BorderThickness="3"
+                CornerRadius="5">
+                <Grid>
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Content="..."
+                        FontSize="25"
+                        Foreground="LightGray"
+                        Visibility="{Binding NotificationData.Title, Converter={converter:NullToVisibilityConverter Invert=True}}" />
+                    <customcomponents:CustomIcon
+                        Width="100"
+                        Height="155"
+                        Margin="0,0,-10,-25"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Panel.ZIndex="3"
+                        Foreground="#ff9e27"
+                        Kind="FileMusicOutline"
+                        Opacity="0.2"
+                        Style="{StaticResource ResourceKey=CustomIconStyle}" />
+                    <StackPanel
+                        Margin="5,0,0,0"
+                        Background="Transparent"
+                        Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Border
+                                Margin="5"
+                                CornerRadius="5"
+                                Visibility="{Binding NotificationData.Number, Converter={converter:NullToVisibilityConverter Invert=False}}">
+                                <Label
+                                    Content="{Binding NotificationData.Number}"
+                                    FontFamily="Bold"
+                                    FontSize="35"
+                                    FontWeight="Bold"
+                                    Foreground="#ff9e27" />
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#ffd7b5" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+
+                            </Border>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding NotificationData.Number}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border
+                                Margin="5,-10,5,0"
+                                VerticalAlignment="Center"
+                                CornerRadius="5"
+                                Visibility="{Binding NotificationData.Title, Converter={converter:NullToVisibilityConverter Invert=False}}">
+                                <Label
+                                    Content="{Binding NotificationData.Title}"
+                                    FontFamily="Bold"
+                                    FontSize="22" />
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#ffd7b5" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <Label
+                                Margin="0,-17,10,0"
+                                Content="{Binding NotificationData.KeyChord}"
+                                FontFamily="Bold"
+                                FontSize="35"
+                                FontWeight="Bold"
+                                Foreground="#ff9e27" />
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding NotificationData.Title}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </StackPanel>
+                        <StackPanel>
+                            <Label
+                                Margin="5,0,5,0"
+                                Content="{Binding NotificationData.SongbookTitle}"
+                                FontSize="18"
+                                FontWeight="Bold"
+                                Foreground="#b16100" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

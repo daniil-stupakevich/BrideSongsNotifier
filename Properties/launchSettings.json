@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BrideSongs.Notifier.App": {
+      "commandName": "Project",
+      "commandLineArgs": "-logDetails"
+    }
+  }
+}
